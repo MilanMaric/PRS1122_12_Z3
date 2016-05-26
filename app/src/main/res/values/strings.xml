@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">PRS1122_12_Z3</string>
+    <string name="forecast_base_url" translatable="false">http://api.openweathermap.org/data/2.5/forecast/daily</string>
+    <string name="forecast_app_id" translatable="false">appid=62e8fde98f3cf522aa2a2fde2ee68040</string>
+    <string name="date_description">Date:</string>
+    <string name="temp_min">Min:</string>
+    
+</resources>

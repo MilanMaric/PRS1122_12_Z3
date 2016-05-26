@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PRS1122_12_Z3</string>
+    <string name="date_description">Datum:</string>
+    <string name="temp_min">Minimum:</string>
+</resources>
