@@ -3,7 +3,9 @@ package net.etfbl.prs.prs1122_12_z3;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Weather {
+import java.io.Serializable;
+
+public class Weather implements Serializable {
     private int id;
     private String description;
     private String icon;

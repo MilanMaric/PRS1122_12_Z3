@@ -3,9 +3,10 @@ package net.etfbl.prs.prs1122_12_z3;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Day {
+public class Day implements Serializable{
     public static final String JSON_DATE_TIME = "dt";
     public static final String JSON_TEMPERATURE = "temp";
     public static final String JSON_PRESSURE = "pressure";

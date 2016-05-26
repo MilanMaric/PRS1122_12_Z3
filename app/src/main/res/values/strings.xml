@@ -4,5 +4,5 @@
     <string name="forecast_app_id" translatable="false">appid=62e8fde98f3cf522aa2a2fde2ee68040</string>
     <string name="date_description">Date:</string>
     <string name="temp_min">Min:</string>
-    
+
 </resources>

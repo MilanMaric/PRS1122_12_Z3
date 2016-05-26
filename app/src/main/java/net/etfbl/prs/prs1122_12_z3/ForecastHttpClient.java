@@ -1,6 +1,7 @@
 package net.etfbl.prs.prs1122_12_z3;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -15,7 +16,7 @@ import java.net.URL;
 public class ForecastHttpClient {
     //    public static final String PLACE = "Banja%20Luka,ba%20&";
     public static final String TAG = "MainActivity";
-    private static final String OPEN_WEATHER_MAP_API = "%s?q=%s&mode=json&units=metric&appid=%s";
+    private static final String OPEN_WEATHER_MAP_API = "%s?mode=json&units=metric&appid=%s&q=%s";
 
     private Context mContext;
 
@@ -26,7 +27,8 @@ public class ForecastHttpClient {
 
     public Forecast getForecast(String place) {
         String urlPath = String.format(OPEN_WEATHER_MAP_API, mContext.getString(R.string.forecast_base_url), place, R.string.forecast_app_id);
-        InputStream iStream = null;
+        Log.d(TAG, "Url path: "+urlPath);
+        InputStream iStream ;
         String response = "";
         HttpURLConnection urlConnection = null;
         Forecast forecastResponse = null;
@@ -44,6 +46,7 @@ public class ForecastHttpClient {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
+            assert urlConnection != null;
             urlConnection.disconnect();
         }
         try {
@@ -52,6 +55,11 @@ public class ForecastHttpClient {
             Log.e(TAG, e.toString());
         }
         return forecastResponse;
+    }
+
+
+    public Bitmap getBitmap(String name) {
+        return null;
     }
 
 

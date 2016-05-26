@@ -3,8 +3,10 @@ package net.etfbl.prs.prs1122_12_z3;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 
-public class Temperature {
+
+public class Temperature implements Serializable{
     private double day;
     private double evening;
     private double min;

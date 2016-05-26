@@ -3,7 +3,9 @@ package net.etfbl.prs.prs1122_12_z3;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class City {
+import java.io.Serializable;
+
+public class City implements Serializable {
     private int id;
     private String country;
     private String name;

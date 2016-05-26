@@ -4,12 +4,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-/**
- * Created by milan on 22.5.2016.
- */
-public class Forecast {
+
+public class Forecast implements Serializable{
     public static final String JSON_CNT = "cnt";
     public static final String JSON_CITY = "city";
     public static final String JSON_CODE = "cod";
