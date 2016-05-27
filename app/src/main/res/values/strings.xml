@@ -4,5 +4,8 @@
     <string name="forecast_app_id" translatable="false">62e8fde98f3cf522aa2a2fde2ee68040</string>
     <string name="date_description">Date:</string>
     <string name="temp_min">Min:</string>
+    <string name="showing_city_description">Showing forecast for city:</string>
+    <string name="default_city">Banja Luka,ba</string>
+    <string name="temp_max">Max:</string>
 
 </resources>

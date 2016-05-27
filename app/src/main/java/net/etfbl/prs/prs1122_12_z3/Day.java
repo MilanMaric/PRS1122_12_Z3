@@ -28,7 +28,7 @@ public class Day implements Serializable {
     public static Day parseJSON(JSONObject object) throws JSONException {
         Day day = new Day();
         day.timestamp = object.getInt(JSON_DATE_TIME);
-        day.date = new Date(day.timestamp*1000);
+        day.date = new Date((long)day.timestamp*1000);
         day.temperature = Temperature.parseJSON(object.getJSONObject(JSON_TEMPERATURE));
         day.pressure = object.getDouble(JSON_PRESSURE);
         day.humidity = object.getDouble(JSON_HUMIDITY);

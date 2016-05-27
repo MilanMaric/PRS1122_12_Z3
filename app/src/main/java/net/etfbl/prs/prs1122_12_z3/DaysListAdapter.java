@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,11 +73,15 @@ public class DaysListAdapter extends BaseAdapter {
         }
         Day day = (Day) getItem(position);
         TextView date = (TextView) view.findViewById(R.id.dateField);
-        DateFormat dateFormat = DateFormat.getDateInstance();
-        String text = dateFormat.format(day.getDate());
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        String text = format.format(day.getDate());
         date.setText(text);
+
         TextView tempMin = (TextView) view.findViewById(R.id.temp_min);
         tempMin.setText(Double.toString(day.getTemperature().getMin()));
+
+        TextView tempMax = (TextView) view.findViewById(R.id.temp_max);
+        tempMax.setText(Double.toString(day.getTemperature().getMax()));
         return view;
     }
 
