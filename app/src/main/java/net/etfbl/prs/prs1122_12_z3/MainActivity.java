@@ -8,10 +8,13 @@ import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
+    private DaysListAdapter mAdapter;
+    private ListView mList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +23,10 @@ public class MainActivity extends AppCompatActivity {
         ResponseReceiver responseReceiver = new ResponseReceiver();
         IntentFilter statusIntentFilter = new IntentFilter(ForecastService.BROADCAST_ACTION);
         LocalBroadcastManager.getInstance(this).registerReceiver(responseReceiver, statusIntentFilter);
-        ForecastService.startActionGetData(this, "Banja Luka,ba");
+        mAdapter = new DaysListAdapter(this);
+        mList = (ListView) findViewById(R.id.days_list);
 
+        ForecastService.startActionGetData(this, "Banja Luka,ba");
     }
 
     private class ResponseReceiver extends BroadcastReceiver {
@@ -32,7 +37,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             Forecast forecast = (Forecast) intent.getSerializableExtra(ForecastService.BROADCAST_EXTRA);
-            Log.d(TAG,forecast+"");
+            mAdapter.setList(forecast.getDays());
+            mList.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+            Log.d(TAG, forecast + "");
         }
     }
 }

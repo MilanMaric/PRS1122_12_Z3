@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Day implements Serializable{
+public class Day implements Serializable {
     public static final String JSON_DATE_TIME = "dt";
     public static final String JSON_TEMPERATURE = "temp";
     public static final String JSON_PRESSURE = "pressure";
@@ -28,6 +28,7 @@ public class Day implements Serializable{
     public static Day parseJSON(JSONObject object) throws JSONException {
         Day day = new Day();
         day.timestamp = object.getInt(JSON_DATE_TIME);
+        day.date = new Date(day.timestamp*1000);
         day.temperature = Temperature.parseJSON(object.getJSONObject(JSON_TEMPERATURE));
         day.pressure = object.getDouble(JSON_PRESSURE);
         day.humidity = object.getDouble(JSON_HUMIDITY);

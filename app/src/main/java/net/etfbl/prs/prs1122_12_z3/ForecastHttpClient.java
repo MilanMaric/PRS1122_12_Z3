@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 public class ForecastHttpClient {
     //    public static final String PLACE = "Banja%20Luka,ba%20&";
@@ -26,7 +27,8 @@ public class ForecastHttpClient {
 
 
     public Forecast getForecast(String place) {
-        String urlPath = String.format(OPEN_WEATHER_MAP_API, mContext.getString(R.string.forecast_base_url), place, R.string.forecast_app_id);
+        String urlPath = String.format(OPEN_WEATHER_MAP_API, mContext.getString(R.string.forecast_base_url),
+                mContext.getString(R.string.forecast_app_id), URLEncoder.encode(place));
         Log.d(TAG, "Url path: "+urlPath);
         InputStream iStream ;
         String response = "";
