@@ -16,7 +16,7 @@ public class Weather implements Serializable {
         weather.id = object.getInt("id");
         weather.main = object.getString("main");
         weather.description = object.getString("description");
-        weather.icon = object.getString("description");
+        weather.icon = object.getString("icon");
         return weather;
     }
 
