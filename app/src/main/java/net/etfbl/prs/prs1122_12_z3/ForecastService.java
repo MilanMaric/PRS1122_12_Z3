@@ -40,9 +40,11 @@ public class ForecastService extends IntentService {
             if (ACTION_GET_DATA.equals(action)) {
                 final String place = intent.getStringExtra(EXTRA_PLACE);
                 Forecast forecast = forecastHttpClient.getForecast(place);
-                Intent localIntent = new Intent(BROADCAST_ACTION);
-                localIntent.putExtra(BROADCAST_EXTRA, forecast);
-                LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
+                if(forecast!=null) {
+                    Intent localIntent = new Intent(BROADCAST_ACTION);
+                    localIntent.putExtra(BROADCAST_EXTRA, forecast);
+                    LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
+                }
 
             } else if (ACTION_GET_IMAGE.equals(action)) {
                 final String name = intent.getStringExtra(EXTRA_IMAGE_NAME);

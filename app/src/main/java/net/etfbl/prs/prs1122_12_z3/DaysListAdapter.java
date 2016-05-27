@@ -92,11 +92,12 @@ public class DaysListAdapter extends BaseAdapter {
     }
 
     private int getDrawableId(String icon) {
-        int id = R.drawable.w10d;
-        Log.d("DaysListAdapter", "Icon for " + id);
+        int id ;
+        Log.d("DaysListAdapter", "Icon for " + icon);
         switch (icon) {
             case "01d":
                 id = R.drawable.w01d;
+                break;
             case "02d":
                 id = R.drawable.w02d;
                 break;

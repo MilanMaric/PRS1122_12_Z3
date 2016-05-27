@@ -25,13 +25,17 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
     private DaysListAdapter mAdapter;
     private ListView mList;
     private ProgressBar mProgressBar;
+    private TextView mCityNameTextView;
+    private LinearLayout mHeader;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +54,24 @@ public class MainActivity extends AppCompatActivity {
         ResponseReceiver responseReceiver = new ResponseReceiver();
         IntentFilter statusIntentFilter = new IntentFilter(ForecastService.BROADCAST_ACTION);
         LocalBroadcastManager.getInstance(this).registerReceiver(responseReceiver, statusIntentFilter);
+        mCityNameTextView = (TextView) findViewById(R.id.place_name_holder);
         mAdapter = new DaysListAdapter(this);
+        mHeader = (LinearLayout) findViewById(R.id.header);
+        mHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
         mList = (ListView) findViewById(R.id.days_list);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String city = prefs.getString("pref_city_name", "Banja Luka,b");
+        Log.d(TAG, "City: " + city);
+        mCityNameTextView.setText(city);
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        ForecastService.startActionGetData(this, city);
         mProgressBar.setVisibility(View.VISIBLE);
-        ForecastService.startActionGetData(this, "Banja Luka,ba");
     }
 
     private class ResponseReceiver extends BroadcastReceiver {
@@ -62,11 +82,13 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             Forecast forecast = (Forecast) intent.getSerializableExtra(ForecastService.BROADCAST_EXTRA);
-            mAdapter.setList(forecast.getDays());
-            mList.setAdapter(mAdapter);
-            mAdapter.notifyDataSetChanged();
-            mProgressBar.setVisibility(View.GONE);
-            Log.d(TAG, forecast + "");
+            if (forecast != null) {
+                mAdapter.setList(forecast.getDays());
+                mList.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
+                mProgressBar.setVisibility(View.GONE);
+                Log.d(TAG, forecast + "");
+            }
         }
     }
 }
