@@ -43,8 +43,8 @@ public class AlarmReceiver extends BroadcastReceiver {
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
             calendar.add(Calendar.MINUTE, frequency);
-//            int frequencyMs = frequency * 1000 * 60;
-            int frequencyMs=1000*60;
+            int frequencyMs = frequency * 1000 * 60;
+//            int frequencyMs=1000*60;
             Log.d(TAG, "Frequency ms: " + frequencyMs + " frequency: " + frequency);
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), frequencyMs, alarmIntent);
         }
