@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import net.etfbl.prs.prs1122_12_z3.dao.Day;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package net.etfbl.prs.prs1122_12_z3;
+package net.etfbl.prs.prs1122_12_z3.dao;
 
 import org.json.JSONException;
 import org.json.JSONObject;

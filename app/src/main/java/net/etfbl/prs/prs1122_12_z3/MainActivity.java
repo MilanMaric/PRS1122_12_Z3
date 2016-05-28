@@ -36,6 +36,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.etfbl.prs.prs1122_12_z3.dao.Forecast;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
