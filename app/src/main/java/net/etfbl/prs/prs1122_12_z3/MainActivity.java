@@ -32,10 +32,11 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private ListView mList;
     private ProgressBar mProgressBar;
     private TextView mCityNameTextView;
-    private LinearLayout mHeader;
-
+    private ImageButton mSettings;
+    private ImageButton mSync;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,21 +56,32 @@ public class MainActivity extends AppCompatActivity {
         IntentFilter statusIntentFilter = new IntentFilter(ForecastService.BROADCAST_ACTION);
         LocalBroadcastManager.getInstance(this).registerReceiver(responseReceiver, statusIntentFilter);
         mCityNameTextView = (TextView) findViewById(R.id.place_name_holder);
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mAdapter = new DaysListAdapter(this);
-        mHeader = (LinearLayout) findViewById(R.id.header);
-        mHeader.setOnClickListener(new View.OnClickListener() {
+        mSettings = (ImageButton) findViewById(R.id.buttonSettings);
+        mList = (ListView) findViewById(R.id.days_list);
+        mSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
             }
         });
-        mList = (ListView) findViewById(R.id.days_list);
+        mSync = (ImageButton) findViewById(R.id.buttonSync);
+        mSync.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getForecast();
+            }
+        });
+        getForecast();
+    }
+
+    private void getForecast() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String city = prefs.getString("pref_city_name", "Banja Luka,b");
         Log.d(TAG, "City: " + city);
         mCityNameTextView.setText(city);
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         ForecastService.startActionGetData(this, city);
         mProgressBar.setVisibility(View.VISIBLE);
     }
@@ -88,6 +100,9 @@ public class MainActivity extends AppCompatActivity {
                 mAdapter.notifyDataSetChanged();
                 mProgressBar.setVisibility(View.GONE);
                 Log.d(TAG, forecast + "");
+            } else {
+                mProgressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(MainActivity.this, getString(R.string.error_internet), Toast.LENGTH_SHORT).show();
             }
         }
     }

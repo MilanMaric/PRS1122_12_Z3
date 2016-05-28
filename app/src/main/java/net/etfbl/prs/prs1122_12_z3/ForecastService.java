@@ -3,6 +3,8 @@ package net.etfbl.prs.prs1122_12_z3;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 
 
@@ -38,9 +40,13 @@ public class ForecastService extends IntentService {
             final String action = intent.getAction();
             ForecastHttpClient forecastHttpClient = new ForecastHttpClient(getBaseContext());
             if (ACTION_GET_DATA.equals(action)) {
-                final String place = intent.getStringExtra(EXTRA_PLACE);
+                String place = intent.getStringExtra(EXTRA_PLACE);
+                if (place == null) {
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+                    place = prefs.getString("pref_city_name", "Banja Luka,b");
+                }
                 Forecast forecast = forecastHttpClient.getForecast(place);
-                if(forecast!=null) {
+                if (forecast != null) {
                     Intent localIntent = new Intent(BROADCAST_ACTION);
                     localIntent.putExtra(BROADCAST_EXTRA, forecast);
                     LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
