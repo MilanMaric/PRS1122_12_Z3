@@ -25,9 +25,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -47,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mCityNameTextView;
     private ImageButton mSettings;
     private ImageButton mSync;
+    private AlarmReceiver alarm = new AlarmReceiver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +54,13 @@ public class MainActivity extends AppCompatActivity {
         ResponseReceiver responseReceiver = new ResponseReceiver();
         IntentFilter statusIntentFilter = new IntentFilter(ForecastService.BROADCAST_ACTION);
         LocalBroadcastManager.getInstance(this).registerReceiver(responseReceiver, statusIntentFilter);
+
         mCityNameTextView = (TextView) findViewById(R.id.place_name_holder);
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mAdapter = new DaysListAdapter(this);
         mSettings = (ImageButton) findViewById(R.id.buttonSettings);
         mList = (ListView) findViewById(R.id.days_list);
+
         mSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,17 +73,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getForecast();
+                alarm.cancelAlarm(MainActivity.this);
+                alarm.setAlarm(MainActivity.this);
             }
         });
         getForecast();
+        alarm.setAlarm(this);
     }
 
     private void getForecast() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String city = prefs.getString("pref_city_name", "Banja Luka,b");
+        String city = ForecastService.getCity(this);
         Log.d(TAG, "City: " + city);
         mCityNameTextView.setText(city);
-        ForecastService.startActionGetData(this, city);
+        ForecastService.startActionGetData(this);
         mProgressBar.setVisibility(View.VISIBLE);
     }
 
@@ -99,10 +102,15 @@ public class MainActivity extends AppCompatActivity {
                 mList.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
                 mProgressBar.setVisibility(View.GONE);
+
+
+                mCityNameTextView.setText(forecast.getCity().getName() + "," + forecast.getCity().getCountry());
+                Toast.makeText(MainActivity.this, "Updated", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, forecast + "");
             } else {
-                mProgressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(MainActivity.this, getString(R.string.error_internet), Toast.LENGTH_SHORT).show();
+                mProgressBar.setVisibility(View.GONE);
+
+//                Toast.makeText(MainActivity.this, getString(R.string.error_internet), Toast.LENGTH_SHORT).show();
             }
         }
     }

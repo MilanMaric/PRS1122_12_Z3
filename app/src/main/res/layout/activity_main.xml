@@ -22,24 +22,14 @@
             android:layout_height="wrap_content"
             android:src="@drawable/city_icon" />
 
-        <LinearLayout
+
+        <TextView
+            android:id="@+id/place_name_holder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/showing_city_description"
-                android:textSize="@dimen/header_text_size" />
-
-            <TextView
-                android:id="@+id/place_name_holder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/default_city"
-                android:textSize="@dimen/header_text_size" />
-        </LinearLayout>
+            android:text="@string/default_city"
+            android:textSize="@dimen/header_text_size"
+            android:layout_weight="2"/>
 
         <ImageButton
             android:id="@+id/buttonSync"

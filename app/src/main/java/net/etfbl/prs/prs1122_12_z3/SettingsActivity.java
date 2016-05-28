@@ -34,6 +34,8 @@ import java.util.List;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
+    public static final String SYNC_FREQUENCY = "sync_frequency";
+    public static final String PREF_CITY_NAME = "pref_city_name";
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
@@ -172,7 +174,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_general);
             setHasOptionsMenu(true);
-            bindPreferenceSummaryToValue(findPreference("pref_city_name"));
+            bindPreferenceSummaryToValue(findPreference(PREF_CITY_NAME));
         }
 
         @Override
@@ -221,7 +223,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_data_sync);
             setHasOptionsMenu(true);
-            bindPreferenceSummaryToValue(findPreference("sync_frequency"));
+            bindPreferenceSummaryToValue(findPreference(SYNC_FREQUENCY));
         }
 
         @Override
