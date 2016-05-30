@@ -22,10 +22,14 @@
 package net.etfbl.prs.prs1122_12_z3;
 
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import java.util.Calendar;
@@ -44,7 +48,6 @@ public class AlarmReceiver extends BroadcastReceiver {
             calendar.setTimeInMillis(System.currentTimeMillis());
             calendar.add(Calendar.MINUTE, frequency);
             int frequencyMs = frequency * 1000 * 60;
-//            int frequencyMs=1000*60;
             Log.d(TAG, "Frequency ms: " + frequencyMs + " frequency: " + frequency);
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), frequencyMs, alarmIntent);
         }

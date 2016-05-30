@@ -93,7 +93,7 @@ public class DaysListAdapter extends BaseAdapter {
         return view;
     }
 
-    private int getDrawableId(String icon) {
+    public static int getDrawableId(String icon) {
         int id ;
         switch (icon) {
             case "01d":
