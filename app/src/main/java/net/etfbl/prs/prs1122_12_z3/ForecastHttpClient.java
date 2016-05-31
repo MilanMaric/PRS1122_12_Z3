@@ -18,7 +18,7 @@ import java.net.URLEncoder;
 
 public class ForecastHttpClient extends Thread {
     public static final String TAG = "MainActivity";
-    private static final String OPEN_WEATHER_MAP_API = "%s?mode=json&units=metric&appid=%s&q=%s";
+    private static final String OPEN_WEATHER_MAP_API = "%s?mode=json&cnt=5&units=metric&appid=%s&q=%s";
 
     private Context mContext;
     private String mPlace;

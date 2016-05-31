@@ -80,12 +80,10 @@ public class ForecastService extends Service {
         if (intent != null) {
             final String action = intent.getAction();
             ForecastHttpClient forecastHttpClient = new ForecastHttpClient(getBaseContext());
-            mHandler = new Handler();
             if (ACTION_GET_DATA.equals(action)) {
                 String place = getCity(this);
                 forecastHttpClient.setPlace(place);
                 forecastHttpClient.start();
-                mHandler.postDelayed(forecastHttpClient, 2);
             }
         }
     }
