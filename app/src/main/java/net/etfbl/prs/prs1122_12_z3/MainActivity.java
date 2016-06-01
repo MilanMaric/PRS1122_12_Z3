@@ -21,17 +21,11 @@
 
 package net.etfbl.prs.prs1122_12_z3;
 
-import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -42,12 +36,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import net.etfbl.prs.prs1122_12_z3.dao.Day;
 import net.etfbl.prs.prs1122_12_z3.dao.Forecast;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
-    public static long[] vibratePattern = new long[]{1000, 1000, 1000, 1000, 1000};
+
     private DaysListAdapter mAdapter;
     private ListView mList;
     private ProgressBar mProgressBar;
@@ -98,26 +91,6 @@ public class MainActivity extends AppCompatActivity {
         mProgressBar.setVisibility(View.VISIBLE);
     }
 
-    private void setNotification(Forecast forecast, Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean notification = prefs.getBoolean("notifications_new_message", false);
-        if (notification) {
-            Day day = forecast.getDays().get(0);
-            String ringtone = prefs.getString("notifications_new_message_ringtone", "DEFAULT_SOUND");
-            boolean vibrate = prefs.getBoolean("notifications_new_message_vibrate", false);
-            Uri ringtoneUri = Uri.parse(ringtone);
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            builder.setSmallIcon(DaysListAdapter.getDrawableId(day.getWeather().getIcon()));
-            builder.setSound(ringtoneUri);
-            builder.setVibrate(vibratePattern);
-            builder.setLights(Color.GREEN, 4000, 2000);
-            builder.setContentTitle(forecast.getCity().getName() + "," + forecast.getCity().getCountry());
-            builder.setContentText("Min: " + day.getTemperature().getMin() + " Max:" + day.getTemperature().getMax());
-            int id = 1;
-            manager.notify(id, builder.build());
-        }
-    }
 
     private class ResponseReceiver extends BroadcastReceiver {
         private ResponseReceiver() {
@@ -129,13 +102,10 @@ public class MainActivity extends AppCompatActivity {
             Forecast forecast = (Forecast) intent.getSerializableExtra(ForecastService.BROADCAST_EXTRA);
             if (forecast != null) {
                 mAdapter.setList(forecast.getDays());
-
                 mAdapter.notifyDataSetChanged();
                 mProgressBar.setVisibility(View.GONE);
-                setNotification(forecast, context);
                 mCityNameTextView.setText(forecast.getCity().getName() + "," + forecast.getCity().getCountry());
                 Toast.makeText(MainActivity.this, "Updated", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, forecast + "");
             } else {
                 mProgressBar.setVisibility(View.GONE);
 

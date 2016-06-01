@@ -38,6 +38,15 @@ import java.util.Locale;
  **********************************************************************/
 public class DaysListAdapter extends BaseAdapter {
 
+    public static final String D01 = "01d";
+    public static final String D02 = "02d";
+    public static final String D03 = "03d";
+    public static final String D04 = "04d";
+    public static final String D05 = "09d";
+    public static final String D06 = "10d";
+    public static final String D07 = "11d";
+    public static final String D08 = "13d";
+    public static final String D09 = "50d";
     private Context mContext;
     private List<Day> mList = new ArrayList<>();
 
@@ -96,31 +105,31 @@ public class DaysListAdapter extends BaseAdapter {
     public static int getDrawableId(String icon) {
         int id ;
         switch (icon) {
-            case "01d":
+            case D01:
                 id = R.drawable.w01d;
                 break;
-            case "02d":
+            case D02:
                 id = R.drawable.w02d;
                 break;
-            case "03d":
+            case D03:
                 id = R.drawable.w03d;
                 break;
-            case "04d":
+            case D04:
                 id = R.drawable.w04d;
                 break;
-            case "09d":
+            case D05:
                 id = R.drawable.w09d;
                 break;
-            case "10d":
+            case D06:
                 id = R.drawable.w10d;
                 break;
-            case "11d":
+            case D07:
                 id = R.drawable.w11d;
                 break;
-            case "13d":
+            case D08:
                 id = R.drawable.w13d;
                 break;
-            case "50d":
+            case D09:
                 id = R.drawable.w50d;
                 break;
             default:

@@ -25,7 +25,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -33,13 +32,10 @@ import android.support.annotation.Nullable;
 
 public class ForecastService extends Service {
     public static final String BROADCAST_ACTION = "net.etfbl.prs.prs1122_12_z3.BROADCAST";
+    public static final String NOTIFICATION_ACTION = "net.etfbl.prs.prs1122_12_z3.NOTIFICATION";
     public static final String BROADCAST_EXTRA = "net.etfbl.prs.prs1122_12_z3.RESULT";
     private static final String ACTION_GET_DATA = "net.etfbl.prs.prs1122_12_z3.action.GET_DATA";
-    private static final String ACTION_GET_IMAGE = "net.etfbl.prs.prs1122_12_z3.action.GET_IMAGE";
-    private static final String EXTRA_PLACE = "net.etfbl.prs.prs1122_12_z3.extra.PLACE";
-    private static final String EXTRA_IMAGE_NAME = "net.etfbl.prs.prs1122_12_z3.extra.IMAGE_NAME";
 
-    private Handler mHandler;
 
     public ForecastService() {
         super();
@@ -55,7 +51,6 @@ public class ForecastService extends Service {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getString("pref_city_name", context.getString(R.string.default_city));
     }
-
 
 
     public static int getFrequency(Context context) {
@@ -84,6 +79,12 @@ public class ForecastService extends Service {
                 String place = getCity(this);
                 forecastHttpClient.setPlace(place);
                 forecastHttpClient.start();
+                try {
+                    forecastHttpClient.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                stopSelf();
             }
         }
     }
