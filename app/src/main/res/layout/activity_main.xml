@@ -18,9 +18,9 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/city_icon" />
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:src="@drawable/weather_icon" />
 
 
         <TextView
@@ -29,7 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="@string/default_city"
-            android:textSize="@dimen/header_text_size" />
+            android:textSize="@dimen/header_text_size"
+            android:layout_marginLeft="@dimen/image_button_margin_left"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -38,16 +39,16 @@
 
             <ImageButton
                 android:id="@+id/buttonSync"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
                 android:background="@color/image_button_background"
                 android:src="@drawable/ic_sync_black_24dp"
                 android:layout_marginLeft="@dimen/image_button_margin_left"/>
 
             <ImageButton
                 android:id="@+id/buttonSettings"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
                 android:background="@color/image_button_background"
                 android:src="@android:drawable/ic_menu_preferences"
                 android:layout_marginLeft="@dimen/image_button_margin_left"
