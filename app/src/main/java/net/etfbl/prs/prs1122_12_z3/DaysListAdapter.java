@@ -1,7 +1,6 @@
 package net.etfbl.prs.prs1122_12_z3;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,22 +18,22 @@ import java.util.Locale;
 /****************************************************************************
  * Copyright (c) 2016 Elektrotehnicki fakultet
  * Patre 5, Banja Luka
- * <p>
+ * <p/>
  * All Rights Reserved
- * <p>
+ * <p/>
  * \file DaysListAdapter.java
  * \brief
- * This file contains a source code for class TaskAdapter
- * <p>
+ * This file contains a source code for class DayListAdapter
+ * <p/>
  * Created on 27.05.2016
  *
  * @Author Milan Maric
- * <p>
+ * <p/>
  * \notes
- * <p>
- * <p>
+ * <p/>
+ * <p/>
  * \history
- * <p>
+ * <p/>
  **********************************************************************/
 public class DaysListAdapter extends BaseAdapter {
 
@@ -58,6 +57,49 @@ public class DaysListAdapter extends BaseAdapter {
     public DaysListAdapter(Context mContext, List<Day> mList) {
         this.mContext = mContext;
         this.mList = mList;
+    }
+
+    /**
+     * This method is used to get drawable id from string that represents a icon code.
+     *
+     * @param icon code for icon
+     * @return int value of drawable
+     */
+    public static int getDrawableId(String icon) {
+        int id;
+        switch (icon) {
+            case D01:
+                id = R.drawable.w01d;
+                break;
+            case D02:
+                id = R.drawable.w02d;
+                break;
+            case D03:
+                id = R.drawable.w03d;
+                break;
+            case D04:
+                id = R.drawable.w04d;
+                break;
+            case D05:
+                id = R.drawable.w09d;
+                break;
+            case D06:
+                id = R.drawable.w10d;
+                break;
+            case D07:
+                id = R.drawable.w11d;
+                break;
+            case D08:
+                id = R.drawable.w13d;
+                break;
+            case D09:
+                id = R.drawable.w50d;
+                break;
+            default:
+                id = R.drawable.w10d;
+                break;
+        }
+        return id;
     }
 
     @Override
@@ -102,43 +144,11 @@ public class DaysListAdapter extends BaseAdapter {
         return view;
     }
 
-    public static int getDrawableId(String icon) {
-        int id ;
-        switch (icon) {
-            case D01:
-                id = R.drawable.w01d;
-                break;
-            case D02:
-                id = R.drawable.w02d;
-                break;
-            case D03:
-                id = R.drawable.w03d;
-                break;
-            case D04:
-                id = R.drawable.w04d;
-                break;
-            case D05:
-                id = R.drawable.w09d;
-                break;
-            case D06:
-                id = R.drawable.w10d;
-                break;
-            case D07:
-                id = R.drawable.w11d;
-                break;
-            case D08:
-                id = R.drawable.w13d;
-                break;
-            case D09:
-                id = R.drawable.w50d;
-                break;
-            default:
-                id = R.drawable.w10d;
-                break;
-        }
-        return id;
-    }
-
+    /**
+     * This method is used do update a list of days
+     *
+     * @param list instance of ArrayList that holds a days
+     */
     public void setList(List<Day> list) {
         mList = list;
         notifyDataSetInvalidated();

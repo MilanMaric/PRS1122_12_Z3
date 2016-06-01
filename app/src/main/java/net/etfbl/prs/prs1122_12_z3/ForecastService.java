@@ -41,18 +41,34 @@ public class ForecastService extends Service {
         super();
     }
 
+    /**
+     * This method is used to make an intent for starting service.
+     *
+     * @param context context for starting intent
+     */
     public static void startActionGetData(Context context) {
         Intent intent = new Intent(context, ForecastService.class);
         intent.setAction(ACTION_GET_DATA);
         context.startService(intent);
     }
 
+    /**
+     * This method returns string from shared preferences, that represents a name of the city.
+     *
+     * @param context context
+     * @return String name of the city
+     */
     public static String getCity(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getString("pref_city_name", context.getString(R.string.default_city));
     }
 
-
+    /**
+     * This method returns int from shared preferences, that represents a frequency of data sync.
+     *
+     * @param context context
+     * @return int value of shared preference
+     */
     public static int getFrequency(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String freq = prefs.getString("sync_frequency", "60");
@@ -71,6 +87,11 @@ public class ForecastService extends Service {
         return START_STICKY;
     }
 
+    /**
+     * This method is used to start HTTP client and fetch informations from server
+     *
+     * @param intent calling intent
+     */
     protected void handleIntent(Intent intent) {
         if (intent != null) {
             final String action = intent.getAction();

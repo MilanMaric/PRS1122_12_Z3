@@ -1,3 +1,24 @@
+/*
+ * Copyright (c) 2016 Elektrotehnicki fakultet
+ *  Patre 5, Banja Luka
+ *  <p/>
+ *  All Rights Reserved
+ *  <p/>
+ *   \file SettingsActivity.java
+ *   \brief
+ *   This file contains a source code for class SettingsActivity
+ *   <p/>
+ *   Created on 27.05.2016
+ *
+ *   @Author Milan Maric
+ *   <p/>
+ *   \notes
+ *   <p/>
+ *   <p/>
+ *   \history
+ *   <p/>
+ */
+
 package net.etfbl.prs.prs1122_12_z3;
 
 
@@ -13,10 +34,10 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
+import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 

@@ -48,14 +48,22 @@ public class ForecastHttpClient extends Thread {
     @Override
     public void run() {
         Forecast forecast = getForecast();
-        //SEND BROADCAST
-        Intent localIntent = new Intent(ForecastService.BROADCAST_ACTION);
-        localIntent.putExtra(ForecastService.BROADCAST_EXTRA, forecast);
-        LocalBroadcastManager.getInstance(mContext).sendBroadcast(localIntent);
-        //SEND NOTIFICATION
-        setNotification(forecast, mContext);
+        if (forecast != null) {
+            //SEND BROADCAST
+            Intent localIntent = new Intent(ForecastService.BROADCAST_ACTION);
+            localIntent.putExtra(ForecastService.BROADCAST_EXTRA, forecast);
+            LocalBroadcastManager.getInstance(mContext).sendBroadcast(localIntent);
+            //SEND NOTIFICATION
+            setNotification(forecast, mContext);
+        }
     }
 
+    /**
+     * This method is used to make a push-up notification
+     *
+     * @param forecast instance of forecast class, retrieved from the server
+     * @param context  context
+     */
     private void setNotification(Forecast forecast, Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         boolean notification = prefs.getBoolean(NOTIFICATIONS_NEW_MESSAGE, false);
@@ -94,6 +102,11 @@ public class ForecastHttpClient extends Thread {
         this.mPlace = mPlace;
     }
 
+    /**
+     * This method is used for fetching data from the server.
+     *
+     * @return Forecast - instance of Forecast class
+     */
     public Forecast getForecast() {
         String urlPath = String.format(OPEN_WEATHER_MAP_API, mContext.getString(R.string.forecast_base_url),
                 mContext.getString(R.string.forecast_app_id), URLEncoder.encode(mPlace));

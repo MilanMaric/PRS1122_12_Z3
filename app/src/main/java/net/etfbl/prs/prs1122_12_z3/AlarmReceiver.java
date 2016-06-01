@@ -22,14 +22,10 @@
 package net.etfbl.prs.prs1122_12_z3;
 
 import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import java.util.Calendar;
@@ -38,6 +34,11 @@ public class AlarmReceiver extends BroadcastReceiver {
     public static final String TAG = "AlarmReceiver";
     private AlarmManager alarmManager;
 
+    /**
+     * This method is used for setting up a alarm
+     *
+     * @param context context
+     */
     public void setAlarm(Context context) {
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
@@ -53,6 +54,11 @@ public class AlarmReceiver extends BroadcastReceiver {
         }
     }
 
+    /**
+     * This method is used for canceling alarm.
+     *
+     * @param context context
+     */
     public void cancelAlarm(Context context) {
         Log.d(TAG, "Cancel alarm");
         Intent intent = new Intent(context, AlarmReceiver.class);
